@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+
+  php-httpd:
+        build: 
+          dockerfile: php-httpd.Dockerfile
+        ports:
+            - "80:80"
+        restart: always
+        volumes:
+            - "./httpd:/var/www/html"
+      
+  db:
+    image: mysql:8.0.30
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: tombo
+    volumes:
+      - "./mysql:/docker-entrypoint-initdb.d"
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.0
+    restart: always
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: tombo
+    ports:
+      - "5000:80"
+      
