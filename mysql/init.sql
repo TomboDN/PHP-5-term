@@ -1,42 +1,36 @@
-CREATE DATABASE IF NOT EXISTS appDB;
+CREATE DATABASE IF NOT EXISTS appDB default charset utf8;
 CREATE USER IF NOT EXISTS 'user'@'%' IDENTIFIED BY 'password';
-GRANT SELECT,UPDATE,INSERT ON appDB.* TO 'user'@'%';
+GRANT SELECT, UPDATE, INSERT ON appDB.* TO 'user'@'%';
 FLUSH PRIVILEGES;
 
 USE appDB;
-CREATE TABLE IF NOT EXISTS users (
-  ID INT(11) NOT NULL AUTO_INCREMENT,
-  name VARCHAR(20) NOT NULL,
-  surname VARCHAR(40) NOT NULL,
-  PRIMARY KEY (ID)
+SET NAMES utf8;
+CREATE TABLE IF NOT EXISTS users
+(
+    id       INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    name     VARCHAR(100)    NOT NULL,
+    password VARCHAR(100)    NOT NULL,
+    role     VARCHAR(10)     NOT NULL
+);
+CREATE TABLE IF NOT EXISTS menu
+(
+    id     INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    name   VARCHAR(100)    NOT NULL,
+    weight VARCHAR(100)    NOT NULL,
+    cost   INT             NOT NULL
 );
 
-INSERT INTO users (name, surname)
-SELECT * FROM (SELECT 'Alex', 'Rover') AS tmp
-WHERE NOT EXISTS (
-    SELECT name FROM users WHERE name = 'Alex' AND surname = 'Rover'
-) LIMIT 1;
 
-INSERT INTO users (name, surname)
-SELECT * FROM (SELECT 'Bob', 'Marley') AS tmp
-WHERE NOT EXISTS (
-    SELECT name FROM users WHERE name = 'Bob' AND surname = 'Marley'
-) LIMIT 1;
+INSERT INTO users (name, password, role)
+VALUES ('Daniil', '12345', 'admin'),
+       ('Ivan', 'qwerty', 'user');
 
-INSERT INTO users (name, surname)
-SELECT * FROM (SELECT 'Alex', 'Rover') AS tmp
-WHERE NOT EXISTS (
-    SELECT name FROM users WHERE name = 'Alex' AND surname = 'Rover'
-) LIMIT 1;
-
-INSERT INTO users (name, surname)
-SELECT * FROM (SELECT 'Kate', 'Yandson') AS tmp
-WHERE NOT EXISTS (
-    SELECT name FROM users WHERE name = 'Kate' AND surname = 'Yandson'
-) LIMIT 1;
-
-INSERT INTO users (name, surname)
-SELECT * FROM (SELECT 'Lilo', 'Black') AS tmp
-WHERE NOT EXISTS (
-    SELECT name FROM users WHERE name = 'Lilo' AND surname = 'Black'
-) LIMIT 1;
+INSERT INTO menu (name, weight, cost)
+VALUES ('Американо', '150 мл', 100),
+       ('Латте', '150 мл', 120),
+       ('Капучино', '200 мл', 170),
+       ('Раф классический', '300 мл', 200),
+       ('Латте Соленая карамель', '300 мл', 250),
+       ('Эспрессо', '30 мл', 75),
+       ('Миндальный фраппе', '450 мл', 300),
+       ('Латте "Клубника-персик"', '300 мл', 270);

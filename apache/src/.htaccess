@@ -1,0 +1,20 @@
+<FilesMatch "\.php$">
+SetEnvIf Cookie auth=.* PASS=1
+Order deny,allow
+Deny from all
+Allow from env=PASS
+</FilesMatch>
+<Files admin.php>
+SetEnvIf Cookie auth=admin ADMIN=1
+Order deny,allow
+Deny from all
+Allow from env=ADMIN
+</Files>
+<Files signin.php>
+    Order Allow,Deny
+    Allow from all
+</Files>
+<FilesMatch ".(htaccess|htpasswd)$">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
