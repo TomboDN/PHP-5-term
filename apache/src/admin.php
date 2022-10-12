@@ -12,13 +12,14 @@
         <th>Пароль</th>
         <th>Роль</th>
     </tr>
-    <?php include_once 'mySQLConnection.php';
-    $mysqli = connectToDB();
-    $result = $mysqli->query(/** @lang MySQL */ "SELECT * FROM users");
+    <?php include_once './api/config/database.php';
+    $database = new Database();
+    $connection = $database->getConnection();
+    $result = $connection->query(/** @lang MySQL */ "SELECT * FROM users");
     foreach ($result as $row) {
         echo "<tr><td>{$row['id']}</td><td>{$row['name']}</td><td>{$row['password']}</td><td>{$row['role']}</td></tr>";
     }
-    $mysqli->close();
+    $connection->close();
     ?>
 </table>
 </body>

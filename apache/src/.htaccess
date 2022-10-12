@@ -1,4 +1,4 @@
-<FilesMatch "\.php$">
+<FilesMatch ".(avaliableOptions|menu).php$">
 SetEnvIf Cookie auth=.* PASS=1
 Order deny,allow
 Deny from all
@@ -18,3 +18,6 @@ Allow from env=ADMIN
 Order Allow,Deny
 Deny from all
 </FilesMatch>
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+)$ index.php?q=$1 [L,QSA]

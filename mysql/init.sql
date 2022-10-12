@@ -12,12 +12,14 @@ CREATE TABLE IF NOT EXISTS users
     password VARCHAR(100)    NOT NULL,
     role     VARCHAR(10)     NOT NULL
 );
-CREATE TABLE IF NOT EXISTS menu
+CREATE TABLE IF NOT EXISTS products
 (
-    id     INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    name   VARCHAR(100)    NOT NULL,
-    weight VARCHAR(100)    NOT NULL,
-    cost   INT             NOT NULL
+    id          INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    name        VARCHAR(100)    NOT NULL,
+    volume      VARCHAR(100)    NOT NULL,
+    description VARCHAR(100),
+    price       INT             NOT NULL,
+    created     DATETIME
 );
 
 
@@ -25,7 +27,7 @@ INSERT INTO users (name, password, role)
 VALUES ('Daniil', '12345', 'admin'),
        ('Ivan', 'qwerty', 'user');
 
-INSERT INTO menu (name, weight, cost)
+INSERT INTO products (name, volume, price)
 VALUES ('Американо', '150 мл', 100),
        ('Латте', '150 мл', 120),
        ('Капучино', '200 мл', 170),

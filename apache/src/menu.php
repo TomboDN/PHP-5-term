@@ -11,13 +11,14 @@
         <th>Объём</th>
         <th>Цена</th>
     </tr>
-    <?php include_once 'mySQLConnection.php';
-    $mysqli = connectToDB();
-    $result = $mysqli->query(/** @lang MySQL */ "SELECT * FROM menu");
+    <?php include_once './api/config/database.php';
+    $database = new Database();
+    $connection = $database->getConnection();
+    $result = $connection->query(/** @lang MySQL */ "SELECT * FROM products");
     foreach ($result as $row) {
-        echo "<tr><td>{$row['name']}</td><td>{$row['weight']}</td><td>{$row['cost']}</td></tr>";
+        echo "<tr><td>{$row['name']}</td><td>{$row['volume']}</td><td>{$row['price']}</td></tr>";
     }
-    $mysqli->close();
+    $connection->close();
     ?>
 </table>
 </body>

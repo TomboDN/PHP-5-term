@@ -10,4 +10,3 @@ if (!isset($role)) {
     }
     echo "<a href='menu.php'>Меню</.a>";
 }
-?>
