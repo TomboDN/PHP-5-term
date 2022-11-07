@@ -1,7 +1,8 @@
-<html lang="en">
+<html lang="ru">
 <head>
     <title>Меню</title>
-    <link rel="stylesheet" href="style.css" type="text/css"/>
+    <link rel="stylesheet" href="../css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="../css/<?php echo $_COOKIE['theme']; ?>.css" type="text/css">
 </head>
 <body>
 <h1>Меню</h1>
@@ -11,7 +12,7 @@
         <th>Объём</th>
         <th>Цена</th>
     </tr>
-    <?php include_once './api/config/database.php';
+    <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/api/config/database.php';
     $database = new Database();
     $connection = $database->getConnection();
     $result = $connection->query(/** @lang MySQL */ "SELECT * FROM products");

@@ -1,13 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Вход</title>
 </head>
 <body>
-<form action="http://localhost:8080/signin.php" method="post">
+<form action="http://localhost:8080/api/actions/signin.php" method="post">
+    <label for="name">Логин</label><br>
     <input type="text" name="name" id="name" placeholder="Логин"><br>
+    <label for="password">Пароль</label><br>
     <input type="password" name="password" id="password" placeholder="Пароль"><br>
+    <label>
+        Тема:
+        <select name="theme">
+            <option value="light">Светлая</option>
+            <option value="dark">Темная</option>
+            <option value="daltonism">Цветовая слепота</option>
+        </select>
+    </label><br>
+    <label>
+        Язык/Language
+        <select name="lang">
+            <option value="ru">Русский</option>
+            <option value="en">English</option>
+        </select>
+    </label><br>
     <input type="submit" value="Войти">
 </form>
 </body>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 $method = $_SERVER['REQUEST_METHOD'];
 
 $url = (isset($_GET['q'])) ? $_GET['q'] : '';
@@ -73,4 +74,9 @@ if ($urls[0] == "api") {
             break;
         }
     endswitch;
+} else {
+    $lang = @$_COOKIE["lang"];
+    if ($lang == "ru") {
+        include_once "ru/" . $urls[0];
+    } elseif ($lang == "en") include_once "en/" . $urls[0];
 }

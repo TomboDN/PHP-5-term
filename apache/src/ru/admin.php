@@ -1,7 +1,8 @@
-<html lang="en">
+<html lang="ru">
 <head>
     <title>Список пользователей</title>
-    <link rel="stylesheet" href="style.css" type="text/css"/>
+    <link rel="stylesheet" href="../css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="../css/<?php echo $_COOKIE['theme']; ?>.css" type="text/css">
 </head>
 <body>
 <h1>Таблица пользователей</h1>
@@ -12,7 +13,7 @@
         <th>Пароль</th>
         <th>Роль</th>
     </tr>
-    <?php include_once './api/config/database.php';
+    <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/api/config/database.php';
     $database = new Database();
     $connection = $database->getConnection();
     $result = $connection->query(/** @lang MySQL */ "SELECT * FROM users");

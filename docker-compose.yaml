@@ -5,7 +5,7 @@ services:
     build:
       context: ./apache
       dockerfile: Dockerfile
-    restart: always
+    restart: on-failure
     links:
       - mysql
     volumes:
@@ -17,7 +17,7 @@ services:
     build:
       context: ./nginx
       dockerfile: Dockerfile
-    restart: always
+    restart: on-failure
     links:
       - mysql
     volumes:
@@ -28,7 +28,7 @@ services:
 
   mysql:
     image: mysql:8.0.30
-    restart: always
+    restart: on-failure
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "no"
       MYSQL_ROOT_USERNAME: root
@@ -41,9 +41,16 @@ services:
     volumes:
       - ./mysql:/docker-entrypoint-initdb.d
 
+  redis:
+    image: redis:6.2.7
+    command: redis-server
+    restart: on-failure
+    ports:
+      - "6379:6379"
+
   phpmyadmin:
     image: phpmyadmin:5.2.0
-    restart: always
+    restart: on-failure
     environment:
       PMA_HOST: mysql
       PMA_USER: root
