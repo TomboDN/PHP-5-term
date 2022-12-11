@@ -1,0 +1,7 @@
+{
+    "require": {
+        "fzaninotto/faker": "^1.9",
+      "ext-mysqli": "*",
+      "ext-gd": "*"
+    }
+}

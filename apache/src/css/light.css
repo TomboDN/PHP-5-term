@@ -1,7 +1,14 @@
 body
 {
-    background: #f4f4f4;
+    background: #ffffff;
     color: #111;
+}
+
+.uploadForm {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    height: 100vh !important;
 }
 
 .header

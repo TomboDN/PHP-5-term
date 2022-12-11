@@ -1,23 +1,8 @@
-<FilesMatch ".*(avaliable-options|menu|file-list|upload).php$">
-SetEnvIf Cookie login=.* PASS=1
-Order deny,allow
-Deny from all
-Allow from env=PASS
-</FilesMatch>
-<Files admin.php>
-SetEnvIf Cookie role=admin ADMIN=1
-Order deny,allow
-Deny from all
-Allow from env=ADMIN
-</Files>
-<Files signin.php>
-Order Allow,Deny
-Allow from all
-</Files>
 <FilesMatch ".(htaccess|htpasswd)$">
 Order Allow,Deny
 Deny from all
 </FilesMatch>
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.+)$ index.php?q=$1 [L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php

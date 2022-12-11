@@ -4,6 +4,13 @@ body
     color: #111;
 }
 
+.uploadForm {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    height: 100vh !important;
+}
+
 .header
 {
     background: #808080;
