@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:if="${lang == 'ru'}">Меню</title>
+    <title th:if="${lang == 'en'}">Menu</title>
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" type="text/css"/>
+    <link th:if="${theme == 'light'}" rel="stylesheet" th:href="@{/assets/css/light.css}" type="text/css"/>
+    <link th:if="${theme == 'dark'}" rel="stylesheet" th:href="@{/assets/css/dark.css}" type="text/css"/>
+    <link th:if="${theme == 'daltonism'}" rel="stylesheet" th:href="@{/assets/css/daltonism.css}" type="text/css"/>
+</head>
+<body>
+<style>span {
+    margin: 10px;
+}</style>
+<p th:if="${lang == 'ru'}">Меню</p>
+<p th:if="${lang == 'en'}">Menu</p>
+<table>
+    <tr>
+        <th th:if="${lang == 'ru'}">Название</th>
+        <th th:if="${lang == 'ru'}">Объём</th>
+        <th th:if="${lang == 'ru'}">Цена</th>
+        <th th:if="${lang == 'en'}">Name</th>
+        <th th:if="${lang == 'en'}">Volume</th>
+        <th th:if="${lang == 'en'}">Price</th>
+    </tr>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.getName()}"></td>
+        <td th:text="${product.getVolume()}"></td>
+        <td th:text="${product.getPrice()}"></td>
+    </tr>
+</table>
+</body>
+</html>

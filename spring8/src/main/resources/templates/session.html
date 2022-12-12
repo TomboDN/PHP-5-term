@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" type="text/css"/>
+    <link th:if="${theme == 'light'}" rel="stylesheet" th:href="@{/assets/css/light.css}" type="text/css"/>
+    <link th:if="${theme == 'dark'}" rel="stylesheet" th:href="@{/assets/css/dark.css}" type="text/css"/>
+    <link th:if="${theme == 'daltonism'}" rel="stylesheet" th:href="@{/assets/css/daltonism.css}" type="text/css"/>
+</head>
+<body>
+<p th:if="${lang == 'ru'}">Сессия</p>
+<p th:if="${lang == 'en'}">Session</p>
+<p><span th:if="${lang == 'en'}">Amount of this page visits in this session: </span><span th:if="${lang == 'ru'}">Количество просмотров данной страницы в этой сессии: </span><span
+        th:text="${counter}"></span></p>
+</body>
+</html>

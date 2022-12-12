@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.1/css/bootstrap.min.css" />
+  <script src="https://kit.fontawesome.com/c4cafcfd34.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" th:href="@{/assets/css/style.css}" type="text/css"/>
+  <link th:if="${theme == 'light'}" rel="stylesheet" th:href="@{/assets/css/light.css}" type="text/css"/>
+  <link th:if="${theme == 'dark'}" rel="stylesheet" th:href="@{/assets/css/dark.css}" type="text/css"/>
+  <link th:if="${theme == 'daltonism'}" rel="stylesheet" th:href="@{/assets/css/daltonism.css}" type="text/css"/>
+
+
+  <link rel="icon" type="image/png" href="assets/toy-train.png" />
+  <title th:if="${lang == 'ru'}">Статистика</title>
+  <title th:if="${lang == 'en'}">Statistics</title>
+</head>
+
+<body>
+<h2 class="text-center m-1"> 📈 </h2>
+<a th:if="${lang == 'ru'}" href="/graphs">Сгенерировать новые графики</a>
+<a th:if="${lang == 'en'}" href="/graphs">Generate new graphs</a>
+
+<div class="container mt-3" style="margin: 0 auto;
+    width: 35%;">
+  <div class="row align-items-center" style="display: flex;
+    flex-direction: column;">
+    <div class="col" style="margin-bottom: 5em;">
+      <img th:src="${photo1}" alt="First chart">
+    </div>
+    <div class="col" style="margin-bottom: 5em;">
+      <img th:src="${photo2}" alt="Second chart">
+    </div>
+    <div class="col" style="margin-bottom: 5em;">
+      <img th:src="${photo3}" alt="Third chart">
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

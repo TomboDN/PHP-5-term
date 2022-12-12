@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+<form th:action="@{/login}" method="post" class="loginForm" >
+    <div th:if="${param.error}">
+        <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+    </div>
+    <div th:if="${param.logout}">
+        <p class="text-warning">Вы вышли из аккаунта.</p>
+    </div>
+    <label for="username">Логин</label><br>
+    <input type="text" name="username" id="username" placeholder="Логин"><br>
+    <label for="password">Пароль</label><br>
+    <input type="password" name="password" id="password" placeholder="Пароль"><br>
+    <input type="submit" value="Войти">
+</form>
+</body>
+</html>

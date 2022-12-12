@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:if="${lang == 'ru'}">Список пользователей</title>
+    <title th:if="${lang == 'en'}">User list</title>
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" type="text/css"/>
+    <link th:if="${theme == 'light'}" rel="stylesheet" th:href="@{/assets/css/light.css}" type="text/css"/>
+    <link th:if="${theme == 'dark'}" rel="stylesheet" th:href="@{/assets/css/dark.css}" type="text/css"/>
+    <link th:if="${theme == 'daltonism'}" rel="stylesheet" th:href="@{/assets/css/daltonism.css}" type="text/css"/>
+</head>
+<body>
+<style>span {
+    margin: 10px;
+}</style>
+<p th:if="${lang == 'ru'}">Список пользователей</p>
+<p th:if="${lang == 'en'}">User list</p>
+<table>
+    <tr>
+        <th>ID</th>
+        <th th:if="${lang == 'ru'}">Имя</th>
+        <th th:if="${lang == 'ru'}">Пароль</th>
+        <th th:if="${lang == 'ru'}">Роль</th>
+        <th th:if="${lang == 'en'}">Name</th>
+        <th th:if="${lang == 'en'}">Password</th>
+        <th th:if="${lang == 'en'}">Role</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getName()}"></td>
+        <td th:text="${user.getPassword()}"></td>
+        <td th:text="${user.getRole()}"></td>
+    </tr>
+</table>
+</body>
+</html>

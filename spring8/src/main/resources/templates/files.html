@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" th:href="@{/assets/css/style.css}" type="text/css"/>
+  <link th:if="${theme == 'light'}" rel="stylesheet" th:href="@{/assets/css/light.css}" type="text/css"/>
+  <link th:if="${theme == 'dark'}" rel="stylesheet" th:href="@{/assets/css/dark.css}" type="text/css"/>
+  <link th:if="${theme == 'daltonism'}" rel="stylesheet" th:href="@{/assets/css/daltonism.css}" type="text/css"/>
+</head>
+<body>
+
+
+<h4 th:if="${lang == 'en'}">Upload File:</h4>
+<h4 th:if="${lang == 'ru'}">Загрузить файл:</h4>
+
+<form method="POST" enctype="multipart/form-data" th:action="@{/upload-file}">
+  <input type="file" name="file"> <br/><br/>
+  <button th:if="${lang == 'en'}" type="submit">Submit</button>
+  <button th:if="${lang == 'ru'}" type="submit">Отправить</button>
+
+</form>
+
+<hr/>
+
+
+<h2 th:if="${lang == 'en'}">All Uploaded Files:</h2>
+<h2 th:if="${lang == 'ru'}">Все загруженные файлы:</h2>
+
+<ul>
+  <li th:each="file : ${files}">
+    <a th:href="${file}" target="_blank" th:text="${file}"></a>
+  </li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.1/css/bootstrap.min.css"/>
+    <script src="https://kit.fontawesome.com/c4cafcfd34.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" type="text/css"/>
+    <link th:if="${theme == 'light'}" rel="stylesheet" th:href="@{/assets/css/light.css}" type="text/css"/>
+    <link th:if="${theme == 'dark'}" rel="stylesheet" th:href="@{/assets/css/dark.css}" type="text/css"/>
+    <link th:if="${theme == 'daltonism'}" rel="stylesheet" th:href="@{/assets/css/daltonism.css}" type="text/css"/>
+</head>
+<body>
+<div><a th:if="${lang == 'ru'}" href="/statistics">Посмотреть графики</a><a th:if="${lang == 'en'}" href="/statistics">See graphs</a></div>
+<div class="container" id="charts">
+    <div class="row align-items-center">
+        <div class="col">
+            <canvas id="myChart1"></canvas>
+        </div>
+        <div class="col">
+            <canvas id="myChart2"></canvas>
+        </div>
+        <div class="col">
+            <canvas id="myChart3"></canvas>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    var genderChart = [[${genderChart}]];
+    var ageChart = [[${ageChart}]];
+    var browsersBar = [[${browsersBar}]];
+
+    console.log(genderChart);
+    console.log(ageChart);
+    console.log(browsersBar);
+
+    const labels = {
+        "first": [
+            'Мужчины',
+            'Женщины'
+        ],
+        "second": [
+            'До 18 лет',
+            'От 18 и до 30 лет',
+            'От 30 и до 50 лет',
+            'От 50 и до 80 лет'
+        ],
+        "third": [
+            'Chrome',
+            'Firefox',
+            'Opera',
+            'Internet Explorer',
+            'Safari',
+            'Microsoft Edge'
+        ]
+    };
+
+    const data = {
+        "first": {
+            labels: labels["first"],
+            datasets: [{
+                label: 'Количество мужчин и женщин',
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4,
+                data: [genderChart['male'], genderChart['female']],
+            }]
+        },
+        "second": {
+            labels: labels["second"],
+            datasets: [{
+                label: 'Возраст пользователей',
+                backgroundColor: [
+                    'rgb(75, 192, 192)',
+                    'rgb(201, 203, 207)',
+                    'rgb(255, 205, 86)',
+                    'rgb(54, 162, 235)'
+                ],
+                data: [ageChart['to18'], ageChart['from18to30'], ageChart['from30to50'], ageChart['from50to80']],
+            }]
+        },
+        "third": {
+            labels: labels["third"],
+            datasets: [{
+                label: 'Используемые браузеры',
+                backgroundColor: [
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                ],
+                borderWidth: 1,
+                data: [browsersBar['Chrome'], browsersBar['Firefox'], browsersBar['Opera'], browsersBar['InternetExplorer'], browsersBar['Safari'], browsersBar['MicrosoftEdge']],
+            }]
+        }
+    };
+
+    const config = {
+        "first": {
+            type: 'pie',
+            data: data["first"],
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: false
+            }
+        },
+        "second": {
+            type: 'polarArea',
+            data: data["second"],
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: false
+            }
+        },
+        "third": {
+            type: 'bar',
+            data: data["third"],
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: false
+            }
+        },
+    };
+
+    var Chart1 = new Chart(
+        document.getElementById('myChart1'),
+        config["first"]
+    );
+
+    var Chart2 = new Chart(
+        document.getElementById('myChart2'),
+        config["second"]
+    );
+
+    var Chart3 = new Chart(
+        document.getElementById('myChart3'),
+        config["third"]
+    );
+
+    document.getElementById("charts").style.visibility = "hidden";
+
+    var canvases = [Chart1, Chart2, Chart3];
+    getUrlCanvases();
+    function getUrlCanvases() {
+        if (canvases.length == 3) {
+            sendCanvases();
+        }
+    }
+
+    function sendCanvases() {
+        var jsonString = JSON.stringify([Chart1.toBase64Image(), Chart2.toBase64Image(), Chart3.toBase64Image()]);
+
+        $.ajax({
+            type: "POST",
+            url: "/statistics",
+            data: {
+                data: jsonString
+            }
+        }).done(function (o) {
+            console.log(canvases);
+        });
+    }
+</script>
+</body>
+</html>
